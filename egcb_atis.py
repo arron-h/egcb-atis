@@ -69,6 +69,9 @@ def talkify_pressure(pressure):
     for char in pressure:
         t += char + " "
 
+    if int(pressure) <= 999:
+        t += "hectopascals"
+
     return t
 
 
@@ -123,9 +126,9 @@ def get_atis():
 def extract_data(key, data):
     body = ""
     try:
-        body = f"{key} {data[key.lower()]}</br>"
+        body = f"{key} {data[key.lower()]}.</br>"
     except KeyError:
-        body = f"{key} unknown</br>"
+        body = f"{key} unknown.</br>"
 
     return body
 
@@ -140,12 +143,12 @@ def atis_text():
     try:
         atis_data = get_atis()
     except Exception as e:
-        return f"Error: {e}"
+        return f"Error: {e}."
 
     if atis_data is None or len(atis_data) == 0:
-        return "No data available"
+        return "No data available."
 
-    body = "Barton Information</br>"
+    body = "Barton Information.</br>"
     body += extract_data("Time", atis_data)
     body += extract_data("Information", atis_data)
     body += extract_data("Runway", atis_data)
